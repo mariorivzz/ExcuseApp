@@ -1,7 +1,6 @@
 // app/(tabs)/_layout.tsx
 import { Tabs } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
-import { ExcuseProvider } from '../hooks/ExcuseContext';
 
 export default function TabsLayout() {
   return (
