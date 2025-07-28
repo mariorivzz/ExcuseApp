@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useExcuses } from '../../hooks/ExcuseContext';
 import { EXCUSES } from '../../constants/excusesData';
 import { Link } from 'expo-router';
+import Toast from 'react-native-root-toast';
 
 export default function ExcusesScreen() {
   const { selectedCategory: category, saveFavorite, favorites } = useExcuses();
@@ -28,8 +29,20 @@ export default function ExcusesScreen() {
 
   const list = EXCUSES[category];
   const showRandom = () => setRandomExcuse(list[Math.floor(Math.random() * list.length)]);
-  const handleSave = (exc: string) => !savedSet.has(exc) && saveFavorite(category, exc);
+  const handleSave = (exc: string) => {
+  if (!savedSet.has(exc)) {
+    saveFavorite(category, exc);
 
+    // Mostrar el toast aquí, tras guardar
+    Toast.show('✅ Excusa guardada', {
+      duration: Toast.durations.SHORT,
+      position: Toast.positions.BOTTOM,
+      shadow: true,
+      animation: true,
+      hideOnPress: true,
+    });
+  }
+};
   return (
     <SafeAreaView style={styles.container}>
 
